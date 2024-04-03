@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .tasks import fetch_cat_facts
+from .tasks import fetch_cat_facts, test_celery
+from django.core.cache import cache
 
 # Create your views here.
 
@@ -22,15 +23,26 @@ def fetch_fact(request):
     except Exception as e:
         return JsonResponse({ 'error': str(e) }, status=500)
     
+    
 def get_fact(request):
     """
     Endpoint to retrieve the first cat fact fetched by the `/fetch_fact` endpoint.
     """
-    # Logic to retrieve the first cat fact fetched by the `/fetch_fact` endpoint
-    # For now, let's assume we have a variable `latest_fact` that stores the latest fact fetched
-    latest_fact = None  # Placeholder for the latest fetched fact
+    # Retrieve cached cat facts
+    cat_facts = cache.get('cat_facts')
 
-    if latest_fact:
-        return JsonResponse({ 'fact': latest_fact })
+    if cat_facts:
+        # Extract the first fact from the fetched facts
+        first_fact = cat_facts[0]
+        return JsonResponse({ 'fact': first_fact })
     else:
         return JsonResponse({ 'error': 'no_task_has_been_queued_yet' })
+    
+    
+#checking celery working    
+def test_celery_view(request):
+    try:
+        test_celery.delay()
+        return JsonResponse({ 'success': True })
+    except Exception as e:
+        return JsonResponse({ 'error': str(e) }, status=500)

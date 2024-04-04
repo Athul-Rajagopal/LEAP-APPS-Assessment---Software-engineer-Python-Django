@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'createAPI',
     'rest_framework',
-    'django_celery_beat',
     'django_celery_results',
 ]
 
@@ -132,10 +131,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Celery configuration
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 
 # Save Celery task results in redis
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
 
 # Optional: Celery timezone
 CELERY_TIMEZONE = 'UTC'
@@ -143,7 +142,7 @@ CELERY_TIMEZONE = 'UTC'
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://localhost:6379/0',  # Redis server location
+        'LOCATION': 'redis://127.0.0.1:6379',  # Redis server location
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }

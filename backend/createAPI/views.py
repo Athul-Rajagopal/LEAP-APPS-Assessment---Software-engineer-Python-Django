@@ -39,10 +39,3 @@ def get_fact(request):
         return JsonResponse({ 'error': 'no_task_has_been_queued_yet' })
     
     
-#checking celery working    
-def test_celery_view(request):
-    try:
-        test_celery.delay()
-        return JsonResponse({ 'success': True })
-    except Exception as e:
-        return JsonResponse({ 'error': str(e) }, status=500)

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from .tasks import fetch_cat_facts, test_celery
+from .tasks import fetch_cat_facts
 from django.core.cache import cache
 
 # Create your views here.

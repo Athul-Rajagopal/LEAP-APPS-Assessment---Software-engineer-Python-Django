@@ -13,5 +13,7 @@ app = Celery('backend')
 # the configuration object to child processes.
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
+print(f"CELERY_APP: {app.name}")
+
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()

@@ -145,9 +145,11 @@ CACHES = {
         'LOCATION': 'redis://127.0.0.1:6379',  # Redis server location
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
+        },
+        'TIMEOUT': 600,  # Expiration time in seconds (e.g., 10 minutes)
     }
 }
+
 
 # LOGGING = {
 #     'version': 1,

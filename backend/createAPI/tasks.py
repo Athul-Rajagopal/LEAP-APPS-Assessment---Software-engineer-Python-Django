@@ -13,7 +13,7 @@ def fetch_cat_facts(self):
         response.raise_for_status()  # Raise exception for 4xx and 5xx status codes
         facts = response.json()
 
-        cache.set('cat_facts', facts)
+        cache.setex('cat_facts', 600, facts)
         logger.info(f"Fetched cat facts: {facts}")
 
     except requests.RequestException as exc:
